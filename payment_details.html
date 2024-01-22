@@ -157,7 +157,7 @@
         const data = await envResponse.json();
         const serverUrl = data.SERVER_URL;
         // Fetch the PaymentIntent client secret and then create the payment form.
-        const response = await fetch(`${serverUrl}/payment_intent`);
+        const response = await fetch(`${serverUrl}/payment_intent?code=${inviteCode}`);
         const { client_secret: clientSecret } = await response.json();
         console.log("clientSecret", clientSecret);
 
