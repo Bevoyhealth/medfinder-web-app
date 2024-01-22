@@ -167,7 +167,7 @@
 
         // Set your publishable key: remember to change this to your live publishable key in production
         // See your keys here: https://dashboard.stripe.com/apikeys
-        var stripe = Stripe('pk_test_51N5UobBOgHhxFJ2BPisyYxU1VZ9O35yRpBLoVkgw8iap4OUELcOabZqgtWEmcg9NmuumTmntEtNx6xEOE22HAEQM00OpI4qxbv');
+        var stripe = Stripe(data.STRIPE_PUBLISHABLE_KEY);
         const options = {
           clientSecret: clientSecret,
           // Fully customizable with appearance API.
