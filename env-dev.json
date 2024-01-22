@@ -1,0 +1,4 @@
+{
+    "SERVER_URL": "http://localhost:1996",
+    "RETURN_URL": "http://localhost:3001/return"
+}

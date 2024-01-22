@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Payment Details</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://js.stripe.com/v3/"></script>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body>
+  <div class="app-bar">
+    <img src="logo_light_background.png" alt="Logo">
+    <div class="divider"></div>
+  </div>
+
+  <div id="content">
+    <div id="loading-container">
+      <div id="loading-indicator"></div>
+    </div>
+
+    <form id="payment-form">
+      <div id="payment-element">
+        <!-- Elements will create form elements here -->
+      </div>
+      <button id="submit" class="btn-flat waves-effect waves-light filled-button">Submit</button>
+      <div id="error-message">
+        <!-- Display error message to your customers here -->
+      </div>
+    </form>
+  </div>
+
+  <style>
+    body,
+    html {
+      height: 100%;
+      /* display: flex;
+      justify-content: center;
+      align-items: center; */
+    }
+
+    .app-bar {
+      /* background-color: #2196F3; */
+      color: white;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .app-bar img {
+      height: 40px;
+      vertical-align: middle;
+    }
+
+    .divider {
+      height: 1px;
+      background-color: #ccc;
+    }
+
+    #content {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #loading-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    #loading-indicator {
+      display: block;
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #FF6B6B;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+
+    #payment-form {
+      display: none;
+    }
+
+    #submit {
+      margin-top: 32px;
+    }
+
+    .filled-button {
+      background-color: #FF6B6B;
+      color: white;
+      border-radius: 32px;
+      border: none;
+      display: block;
+      margin: 0 auto;
+      /* Center the button horizontally */
+    }
+
+    .filled-button:hover {
+      background-color: #FF8E8E;
+      /* Lighten the color on hover */
+    }
+
+    .filled-button:active {
+      background-color: #FF8E8E;
+      /* Add a darker color when active */
+      /* box-shadow: 0 5px #666; */
+      /* transform: translateY(1px); */
+    }
+  </style>
+  <script>
+    // Fetch environment variables from the server.
+    const envFile = window.location.href.includes('localhost') ? 'env-dev.json' : 'env.json';
+    fetch(envFile)
+      .then(async (envResponse) => {
+        const data = await envResponse.json();
+        const serverUrl = data.SERVER_URL;
+        // Fetch the PaymentIntent client secret and then create the payment form.
+        const response = await fetch(`${serverUrl}/payment_intent`);
+        const { client_secret: clientSecret } = await response.json();
+        console.log("clientSecret", clientSecret);
+
+        // Hide the loading container and show the payment form.
+        document.querySelector('#loading-container').style.display = 'none';
+        document.querySelector('#payment-form').style.display = 'block';
+
+        // Set your publishable key: remember to change this to your live publishable key in production
+        // See your keys here: https://dashboard.stripe.com/apikeys
+        var stripe = Stripe('pk_test_51N5UobBOgHhxFJ2BPisyYxU1VZ9O35yRpBLoVkgw8iap4OUELcOabZqgtWEmcg9NmuumTmntEtNx6xEOE22HAEQM00OpI4qxbv');
+        const options = {
+          clientSecret: clientSecret,
+          // Fully customizable with appearance API.
+          appearance: {/*...*/ },
+        };
+
+        // Set up Stripe.js and Elements to use in checkout form, passing the client secret obtained in a previous step
+        const elements = stripe.elements(options);
+
+        // Create and mount the Payment Element
+        const paymentElement = elements.create('payment');
+        paymentElement.mount('#payment-element');
+
+      });
+  </script>
+
+  <!--JavaScript at end of body for optimized loading-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+</body>
+
+</html>
