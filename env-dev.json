@@ -1,4 +1,4 @@
 {
-    "SERVER_URL": "http://localhost:1996",
+    "SERVER_URL": "https://mw1fn4qs74.execute-api.us-east-2.amazonaws.com",
     "RETURN_URL": "http://localhost:3001/return"
 }
