@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Medfinder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <script>
+        function processUrlParams() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var redirectUrl = 'https://example.com/redirectPage';
+            urlParams.forEach(function (value, key) {
+                redirectUrl += (redirectUrl.includes('?') ? '&' : '?') + key + '=' + value;
+            });
+            window.location.href = redirectUrl;
+        }
+        processUrlParams();
+    </script>
+</head>
+
+<body>
+    <p>Redirecting...</p>
+
+    <div id="loading-container">
+        <div id="loading-indicator"></div>
+    </div>
+
+    <style>
+        body,
+        html {
+            height: 100%;
+        }
+
+        #loading-container {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        #loading-indicator {
+            display: block;
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #FF6B6B;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+    </style>
+</body>
+
+</html>
