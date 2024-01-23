@@ -102706,7 +102706,7 @@ A.Zn.prototype={
 a1(a){var s=A.b01(a,t.f7)
 return new A.JZ(new A.avr(),"Medfinder",$.aXj(),$.b8K(),B.b.iO(B.UG,new A.avs(s)),null)}}
 A.avs.prototype={
-$1(a){return a.K()===B.c.W("ThemeMode.",this.a.a.i(0,"theme"))},
+$1(a){return a.K()==="ThemeMode."+A.k(this.a.a.i(0,"theme"))},
 $S:657}
 A.avr.prototype={
 $1(a){var s,r,q=null,p="redirect_status",o=a.a
