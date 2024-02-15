@@ -158,7 +158,7 @@
         const serverUrl = data.SERVER_URL;
         // Fetch the PaymentIntent client secret and then create the payment form.
         const response = await fetch(`${serverUrl}/open/payment_intent?code=${inviteCode}`);
-        const { client_secret: clientSecret } = await response.json();
+        const { clientSecret: clientSecret } = await response.json();
         console.log("clientSecret", clientSecret);
 
         // Hide the loading container and show the payment form.
